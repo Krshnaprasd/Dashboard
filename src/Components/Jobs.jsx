@@ -9,8 +9,10 @@ import Kayak from "../assets/kayako.png";
 import Icon from "../assets/icon1.png";
 import { useState, useEffect, useRef } from "react";
 const Jobs = () => {
-  
   const [searchQuery, setSearchQuery] = useState("");
+
+
+
 
   const [jobCardsData, setJobCardsData] = useState([
     {
@@ -126,6 +128,7 @@ const Jobs = () => {
       candidateCount: "122+",
     },
   ]);
+ 
 
   const filteredJobs = jobCardsData.filter(
     (job) =>
@@ -271,7 +274,7 @@ const Jobs = () => {
                   id="myTab"
                   role="tablist"
                 >
-                  <li className="nav-item" role="presentation">
+                  {/* <li className="nav-item" role="presentation">
                     <button
                       ref={activeTabRef}
                       className={`
@@ -293,7 +296,28 @@ const Jobs = () => {
                         07
                       </span>
                     </button>
-                  </li>
+                  </li> */}
+                <li className="nav-item" role="presentation">
+  <button
+    ref={activeTabRef}
+    className={`py-3 items-center flex font-medium relative focus:outline-none transition-colors duration-200
+      ${activeTab === "active"
+        ? "text-green-600 font-semibold"
+        : "text-gray-500 hover:text-green-600"}
+    `}
+    id="active"
+    onClick={() => handleTabClick("active")}
+    role="tab"
+    aria-controls="active-tab-pane"
+    aria-selected={activeTab === "active"}
+  >
+    Active{" "}
+    <span className="ml-1 px-2 text-xs font-semibold rounded-full bg-green-100 text-green-500">
+      {jobCardsData.length.toString().padStart(2, "0")}
+    </span>
+  </button>
+</li>
+
 
                   <li className="nav-item" role="presentation">
                     <button
