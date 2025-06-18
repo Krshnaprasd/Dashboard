@@ -9,7 +9,7 @@ const Dash = () => {
   return (
     <>
  <div>
-    <div class="bg-white p-1 flex md:justify-end  justify-center">
+    <div className="bg-white p-1 flex md:justify-end  justify-center">
             <div>
               <input
                 type="text"
@@ -23,10 +23,10 @@ const Dash = () => {
               </button>
             </div>
             <div className="flex  items-center  ">
-              <i class="bi bi-question-circle-fill text-lg text-neutral-300 me-3"></i>
-              <div class="relative inline-block">
-                <i class="bi bi-bell-fill  text-lg text-neutral-300 me-3"></i>
-                <span class="absolute -top-1 -right-1 me-3 bg-red-500 text-white text-[5px] min-w-[13px] h-[13px] px-1 rounded-full flex items-center justify-center ring-1 ring-white">
+              <i className="bi bi-question-circle-fill text-lg text-neutral-300 me-3"></i>
+              <div className="relative inline-block">
+                <i className="bi bi-bell-fill  text-lg text-neutral-300 me-3"></i>
+                <span className="absolute -top-1 -right-1 me-3 bg-red-500 text-white text-[5px] min-w-[13px] h-[13px] px-1 rounded-full flex items-center justify-center ring-1 ring-white">
                   15
                 </span>
               </div>

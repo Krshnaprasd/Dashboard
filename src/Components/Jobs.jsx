@@ -8,11 +8,9 @@ import Adobe from "../assets/adobe.png";
 import Kayak from "../assets/kayako.png";
 import Icon from "../assets/icon1.png";
 import { useState, useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 const Jobs = () => {
   const [searchQuery, setSearchQuery] = useState("");
-
-
-
 
   const [jobCardsData, setJobCardsData] = useState([
     {
@@ -36,7 +34,7 @@ const Jobs = () => {
       img: Spot,
       category: "Design",
       date: "5 July",
-      designation: "Frontend Developer",
+      designation: "UI/UX Designer",
       location: "Dhaka, Bangladesh",
       description:
         "We are looking for a programmer with a keen eye for design...",
@@ -52,7 +50,7 @@ const Jobs = () => {
       img: Shaz,
       category: "Design",
       date: "5 July",
-      designation: "CADD Developer",
+      designation: "Head of UX",
       location: "Dhaka, Bangladesh",
       description:
         "We are looking for a programmer with a keen eye for design...",
@@ -68,7 +66,7 @@ const Jobs = () => {
       img: Twit,
       category: "Design",
       date: "5 July",
-      designation: "Fullstack Developer",
+      designation: "Copywriter",
       location: "Dhaka, Bangladesh",
       description:
         "We are looking for a programmer with a keen eye for design...",
@@ -84,7 +82,7 @@ const Jobs = () => {
       img: Inv,
       category: "Design",
       date: "5 July",
-      designation: "Backend Developer",
+      designation: "Junior Designer",
       location: "Dhaka, Bangladesh",
       description:
         "We are looking for a programmer with a keen eye for design...",
@@ -100,7 +98,7 @@ const Jobs = () => {
       img: Adobe,
       category: "Design",
       date: "5 July",
-      designation: "Java Developer",
+      designation: "Wordpress Developer",
       location: "Dhaka, Bangladesh",
       description:
         "We are looking for a programmer with a keen eye for design...",
@@ -116,7 +114,7 @@ const Jobs = () => {
       img: Kayak,
       category: "Design",
       date: "5 July",
-      designation: "Product Designer",
+      designation: "UX Content Writer",
       location: "Dhaka, Bangladesh",
       description:
         "We are looking for a programmer with a keen eye for design...",
@@ -128,7 +126,6 @@ const Jobs = () => {
       candidateCount: "122+",
     },
   ]);
- 
 
   const filteredJobs = jobCardsData.filter(
     (job) =>
@@ -137,6 +134,8 @@ const Jobs = () => {
       job.location.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
+  const navigate = useNavigate() 
+  
   const [showForm, setShowForm] = useState(false);
   const [newJob, setNewJob] = useState({
     category: "",
@@ -202,7 +201,7 @@ const Jobs = () => {
   };
   return (
     <div>
-      <div class="bg-white p-1 flex md:justify-end  justify-center">
+      <div className="bg-white p-1 flex md:justify-end  justify-center">
         <div>
           <input
             type="text"
@@ -216,10 +215,10 @@ const Jobs = () => {
           </button>
         </div>
         <div className="flex  items-center  ">
-          <i class="bi bi-question-circle-fill text-lg text-neutral-300 me-3"></i>
-          <div class="relative inline-block">
-            <i class="bi bi-bell-fill  text-lg text-neutral-300 me-3"></i>
-            <span class="absolute -top-1 -right-1 me-3 bg-red-500 text-white text-[5px] min-w-[13px] h-[13px] px-1 rounded-full flex items-center justify-center ring-1 ring-white">
+          <i className="bi bi-question-circle-fill text-lg text-neutral-300 me-3"></i>
+          <div className="relative inline-block">
+            <i className="bi bi-bell-fill  text-lg text-neutral-300 me-3"></i>
+            <span className="absolute -top-1 -right-1 me-3 bg-red-500 text-white text-[5px] min-w-[13px] h-[13px] px-1 rounded-full flex items-center justify-center ring-1 ring-white">
               15
             </span>
           </div>
@@ -274,17 +273,17 @@ const Jobs = () => {
                   id="myTab"
                   role="tablist"
                 >
-                  {/* <li className="nav-item" role="presentation">
+              
+                  <li className="nav-item" role="presentation">
                     <button
                       ref={activeTabRef}
-                      className={`
-                py-3   align-center items-center flex   font-medium relative focus:outline-none transition-colors duration-200
-                ${
-                  activeTab === "active"
-                    ? "text-green-600 font-semibold"
-                    : "text-gray-500 hover:text-green-600"
-                }
-              `}
+                      className={`py-3 items-center flex font-medium relative focus:outline-none transition-colors duration-200
+      ${
+        activeTab === "active"
+          ? "text-green-600 font-semibold"
+          : "text-gray-500 hover:text-green-600"
+      }
+    `}
                       id="active"
                       onClick={() => handleTabClick("active")}
                       role="tab"
@@ -292,32 +291,11 @@ const Jobs = () => {
                       aria-selected={activeTab === "active"}
                     >
                       Active{" "}
-                      <span className="ml-1 px-2  text-xs font-semibold rounded-full bg-green-100 text-green-500">
-                        07
+                      <span className="ml-1 px-2 text-xs font-semibold rounded-full bg-green-100 text-green-500">
+                        {jobCardsData.length.toString().padStart(2, "0")}
                       </span>
                     </button>
-                  </li> */}
-                <li className="nav-item" role="presentation">
-  <button
-    ref={activeTabRef}
-    className={`py-3 items-center flex font-medium relative focus:outline-none transition-colors duration-200
-      ${activeTab === "active"
-        ? "text-green-600 font-semibold"
-        : "text-gray-500 hover:text-green-600"}
-    `}
-    id="active"
-    onClick={() => handleTabClick("active")}
-    role="tab"
-    aria-controls="active-tab-pane"
-    aria-selected={activeTab === "active"}
-  >
-    Active{" "}
-    <span className="ml-1 px-2 text-xs font-semibold rounded-full bg-green-100 text-green-500">
-      {jobCardsData.length.toString().padStart(2, "0")}
-    </span>
-  </button>
-</li>
-
+                  </li>
 
                   <li className="nav-item" role="presentation">
                     <button
@@ -391,6 +369,7 @@ const Jobs = () => {
                       <div
                         key={job.id}
                         className="bg-white rounded-lg shadow-md p-4"
+                         onClick={() => navigate(`/job/${job.id}`, { state: job })}
                       >
                         <div className="flex items-center justify-between mb-3">
                           <div className="flex items-center">
