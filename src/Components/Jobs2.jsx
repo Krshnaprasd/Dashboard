@@ -174,28 +174,32 @@ const Jobs2 = () => {
   return (
     <div>
     
-        <div className="bg-white p-1 flex md:justify-end justify-center">
-          <div>
-            <input
-              type="text"
-              placeholder="Search for anything"
-              className="my-2 h-7 rounded-l-lg placeholder:text-sm placeholder:px-4 focus:outline-none focus:ring-1 focus:ring-slate-200"
-            />
-            <button className="bg-blue-600 hover:bg-blue-800 text-white px-4 me-3 h-7 rounded-r-lg">
-              <i className="bi bi-search text-white text-sm"></i>
-            </button>
-          </div>
-          <div className="flex items-center">
-            <i className="bi bi-question-circle-fill text-lg text-neutral-300 me-3"></i>
-            <div className="relative inline-block">
-              <i className="bi bi-bell-fill text-lg text-neutral-300 me-3"></i>
-              <span className="absolute -top-1 -right-1 me-3 bg-red-500 text-white text-[5px] min-w-[13px] h-[13px] px-1 rounded-full flex items-center justify-center ring-1 ring-white">
-                15
-              </span>
-            </div>
-            <img className="w-7 h-7 me-5" src={Icon} alt="User Icon" />
-          </div>
-        </div>
+           <div className="bg-white">
+                         <small className=" md:p-1 py-2 flex md:justify-end justify-center">
+                           <div>
+                             <input
+                               type="text"
+                               placeholder="Search for anything"
+                               className=" my-2 md:h-7 h-5 rounded-l-lg placeholder:text-xs placeholder:px-4 focus:outline-none focus:ring-1 focus:ring-slate-200"
+                              
+                             />
+                             <button className="bg-blue-600 hover:bg-blue-800 text-white md:px-4 px-1 me-3 md:h-7 rounded-r-lg">
+                               <i className="bi bi-search text-white text-sm p-1"></i>
+                             </button>
+                           </div>
+                           <div className="flex  items-center  align-center">
+                             <i className="bi bi-question-circle-fill md:text-lg text-sm text-neutral-300 me-3"></i>
+                             <div className="relative inline-block">
+                               <i className="bi bi-bell-fill  md:text-lg text-sm text-neutral-300 me-3"></i>
+                               <span className="absolute -top-1 -right-1 me-3 bg-red-500 text-white text-[5px] min-w-[13px] h-[13px] px-1 rounded-full flex items-center justify-center ring-1 ring-white">
+                                 15
+                               </span>
+                             </div>
+                 
+                             <img className="md:w-7 md:h-7 w-5 h-5 me-5" src={Icon}></img>
+                           </div>
+                         </small>
+                       </div>
         <div className="grid md:grid-cols-12 items-center pt-5 md:px-7 gap-y-3 flex">
           <div className="col-span-12 md:col-span-6 flex items-start items-center justify-center md:justify-start">
             <div className="me-5 "  onClick={() => navigate(-1)}>
@@ -213,11 +217,11 @@ const Jobs2 = () => {
           </div>
 
           <div className="col-span-12 md:col-span-6 flex  md:text-end justify-center md:justify-end">
-            <Button intent="secondary" size="sm">
+            <Button intent="secondary" size="xs">
               Pineline View
             </Button>
             &nbsp;&nbsp;
-            <Button size="sm">Table View</Button>
+            <Button size="xs">Table View</Button>
           </div>
         </div>
 
@@ -226,7 +230,7 @@ const Jobs2 = () => {
             <div className="flex md:justify-start justify-center">
               <small>
                 <ul
-                  className=" md:flex justify-center md:justify-start relative  border-b border-gray-200 mb-5"
+                  className=" md:flex  justify-center md:justify-start relative  border-b border-gray-200 mb-5"
                   id="myTab"
                   role="tablist"
                 >
@@ -253,7 +257,7 @@ const Jobs2 = () => {
                       ref: SettingsTabRef,
                     },
                   ].map(({ label, key, ref }) => (
-                    <li key={key} className="nav-item" role="presentation">
+                    <li key={key} className="nav-item cursor-grab" role="presentation">
                       <button
                         ref={ref}
                         className={`py-3 px-4 flex items-center font-medium transition-colors duration-200 focus:outline-none ${
@@ -290,7 +294,7 @@ const Jobs2 = () => {
                   return (
                     <div
                       key={title}
-                      className={`bg-white rounded-lg shadow-md p-4 `}
+                      className={`bg-white rounded-lg shadow-md p-4 cursor-grab`}
                     >
                       <div
                         className={`flex justify-between items-center mb-4 rounded-md  border-t-2 p-2 ${borderColor}`}

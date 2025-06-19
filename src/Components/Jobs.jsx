@@ -9,6 +9,16 @@ import Kayak from "../assets/kayako.png";
 import Icon from "../assets/icon1.png";
 import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
+import {
+  Card,
+  CardHeader,
+  CardBody,
+  CardFooter,
+  Divider,
+  Link,
+  Image,
+} from "@heroui/react";
+
 const Jobs = () => {
   const [searchQuery, setSearchQuery] = useState("");
 
@@ -134,8 +144,8 @@ const Jobs = () => {
       job.location.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
-  const navigate = useNavigate() 
-  
+  const navigate = useNavigate();
+
   const [showForm, setShowForm] = useState(false);
   const [newJob, setNewJob] = useState({
     category: "",
@@ -201,83 +211,88 @@ const Jobs = () => {
   };
   return (
     <div>
-      <div className="bg-white p-1 flex md:justify-end  justify-center">
-        <div>
-          <input
-            type="text"
-            placeholder="Search for anything"
-            className=" my-2 h-7 rounded-l-lg placeholder:text-sm placeholder:px-4 focus:outline-none focus:ring-1 focus:ring-slate-200"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-          />
-          <button className="bg-blue-600 hover:bg-blue-800 text-white px-4 me-3 h-7 rounded-r-lg">
-            <i className="bi bi-search text-white text-sm"></i>
-          </button>
-        </div>
-        <div className="flex  items-center  ">
-          <i className="bi bi-question-circle-fill text-lg text-neutral-300 me-3"></i>
-          <div className="relative inline-block">
-            <i className="bi bi-bell-fill  text-lg text-neutral-300 me-3"></i>
-            <span className="absolute -top-1 -right-1 me-3 bg-red-500 text-white text-[5px] min-w-[13px] h-[13px] px-1 rounded-full flex items-center justify-center ring-1 ring-white">
-              15
-            </span>
+      <div className="bg-white">
+        <small className=" md:p-1 py-2 flex md:justify-end justify-center">
+          <div>
+            <input
+              type="text"
+              placeholder="Search for anything"
+              className=" my-2 md:h-7 h-5 rounded-l-lg placeholder:text-xs placeholder:px-4 focus:outline-none focus:ring-1 focus:ring-slate-200"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+            />
+            <button className="bg-blue-600 hover:bg-blue-800 text-white md:px-4 px-1 me-3 md:h-7 rounded-r-lg">
+              <i className="bi bi-search text-white text-sm p-1"></i>
+            </button>
           </div>
+          <div className="flex  items-center  align-center">
+            <i className="bi bi-question-circle-fill md:text-lg text-sm text-neutral-300 me-3"></i>
+            <div className="relative inline-block">
+              <i className="bi bi-bell-fill  md:text-lg text-sm text-neutral-300 me-3"></i>
+              <span className="absolute -top-1 -right-1 me-3 bg-red-500 text-white text-[5px] min-w-[13px] h-[13px] px-1 rounded-full flex items-center justify-center ring-1 ring-white">
+                15
+              </span>
+            </div>
 
-          <img className="w-7 h-7 me-5" src={Icon}></img>
-        </div>
+            <img className="md:w-7 md:h-7 w-5 h-5 me-5" src={Icon}></img>
+          </div>
+        </small>
       </div>
       <div className=" grid md:flex justify-center text-center md:text-start grid-cols-1 p-5 md:grid-cols-12 md:justify-between align-center">
         <div className="md:col-span-2 ">
           <div>
-            <h1 className=" px-5 pb-3 md:pb-0 text-2xl font-semibold">Jobs</h1>
+            <h1 className=" px-5 pb-3 md:pb-0 text-xl md:text-2xl font-semibold">
+              Jobs
+            </h1>
           </div>
         </div>
-        <div className="flex justify-between md:col-span-10 text-center align-center">
-          <div>
-            <small>
-              Sort by :{" "}
-              <span className="font-semibold ">
-                {" "}
-                Creation date
-                <input
-                  type="date"
-                  className="w-6 h-6 text-transparent bg-transparent border-none cursor-pointer"
-                />
-              </span>
-            </small>
-          </div>
-          <div className="md:px-5">
-            <small>Status:</small>
-            <small>
-              <select
-                value={activeTab}
-                onChange={(e) => handleTabClick(e.target.value.toLowerCase())}
-                className="bg-transparent text-gray-700 p-1 font-semibold focus:outline-none"
-              >
-                <option value=" ">All Status</option>
-                <option value="Active">Active</option>
-                <option value="Completed">Completed </option>
-                <option value="Unfinished">Unfinished</option>
-              </select>
-            </small>
-          </div>
+        <div className=" md:col-span-10 ">
+          <span className="md:text-lg sm:text-md text-sm flex justify-between text-center align-center">
+            <div>
+              <small>
+                Sort by :{" "}
+                <span className="font-semibold ">
+                  {" "}
+                  Creation date
+                  <input
+                    type="date"
+                    className="w-6 h-6 text-transparent bg-transparent border-none cursor-pointer"
+                  />
+                </span>
+              </small>
+            </div>
+            <div className="md:px-5">
+              <small>Status:</small>
+              <small>
+                <select
+                  value={activeTab}
+                  onChange={(e) => handleTabClick(e.target.value.toLowerCase())}
+                  className="bg-transparent text-gray-700 p-1 font-semibold focus:outline-none"
+                >
+                  <option value=" ">All Status</option>
+                  <option value="Active">Active</option>
+                  <option value="Completed">Completed </option>
+                  <option value="Unfinished">Unfinished</option>
+                </select>
+              </small>
+            </div>
+          </span>
         </div>
       </div>
       <div>
-        <div className=" md:px-9 px-5 justify-center ">
+        <div className=" md:px-9 px-6  ">
           <div className="rounded-lg ">
-            <div className="flex md:justify-start justify-center">
-              <small>
+            <div className="flex  md:justify-start justify-center">
+              <small className="text-xs ">
                 <ul
-                  className="flex  relative border-b border-gray-200 mb-6"
+                  className="flex   relative border-b border-gray-200 mb-6"
                   id="myTab"
                   role="tablist"
                 >
-              
                   <li className="nav-item" role="presentation">
                     <button
                       ref={activeTabRef}
-                      className={`py-3 items-center flex font-medium relative focus:outline-none transition-colors duration-200
+                      className={`py-3 items-center ps-3 md:ps-0 flex font-small relative focus:outline-none transition-colors duration-200
       ${
         activeTab === "active"
           ? "text-green-600 font-semibold"
@@ -291,7 +306,7 @@ const Jobs = () => {
                       aria-selected={activeTab === "active"}
                     >
                       Active{" "}
-                      <span className="ml-1 px-2 text-xs font-semibold rounded-full bg-green-100 text-green-500">
+                      <span className="ml-2 sm:px-3 pe-5 text-xs font-semibold rounded-full bg-green-100 text-green-500">
                         {jobCardsData.length.toString().padStart(2, "0")}
                       </span>
                     </button>
@@ -301,7 +316,7 @@ const Jobs = () => {
                     <button
                       ref={unfinishedTabRef}
                       className={`
-                py-3 px-4 align-center items-center flex  font-medium relative focus:outline-none transition-colors duration-200
+                py-3 sm:px-4 px-2 align-center items-center flex  font-medium relative focus:outline-none transition-colors duration-200
                 ${
                   activeTab === "unfinished"
                     ? "text-green-600 font-semibold"
@@ -325,7 +340,7 @@ const Jobs = () => {
                     <button
                       ref={completedTabRef}
                       className={`
-                py-3 px-4 flex align-center items-center font-medium relative focus:outline-none transition-colors duration-200
+                py-3 sm:px-4 px-2 flex align-center items-center font-medium relative focus:outline-none transition-colors duration-200
                 ${
                   activeTab === "completed"
                     ? "text-green-600 font-semibold"
@@ -364,14 +379,73 @@ const Jobs = () => {
                 tabIndex="0"
               >
                 <div className="font-sans bg-gray-100">
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4  gap-5">
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4   gap-5">
                     {filteredJobs.map((job) => (
                       <div
                         key={job.id}
-                        className="bg-white rounded-lg shadow-md p-4"
-                         onClick={() => navigate(`/job/${job.id}`, { state: job })}
+                        className=" rounded-lg   cursor-grab "
+                        onClick={() =>
+                          navigate(`/job/${job.id}`, { state: job })
+                        }
                       >
-                        <div className="flex items-center justify-between mb-3">
+                        <Card className="bg-slate-10 hover:bg-white-500 hover:scale-95 border-transparent ">
+                          <CardHeader className="flex items-center  justify-between">
+                            <Image
+                              alt="heroui logo"
+                              height={30}
+                              radius="sm"
+                              src={job.img}
+                              width={30}
+                              className="border-slate-800 p-1"
+                            />
+                            <div className="flex ">
+                              <p className="text-small text-gray-500">
+                                {" "}
+                                {job.date}
+                              </p>
+                            </div>
+                          </CardHeader>
+                          <Divider className="bg-gray-100" />
+                          <CardBody>
+                            <span className="text-gray-500 text-xs">
+                              {job.category}
+                            </span>
+                            <h2 className="text-md font-bold ">
+                              {job.designation}
+                            </h2>
+                            <p className="text-gray-600 text-sm mb-3">
+                              {job.location}
+                            </p>
+                            <p className="text-gray-700 text-xs mb-4 line-clamp-3">
+                              {job.description}
+                            </p>
+                          </CardBody>
+                          <Divider className="bg-gray-100" />
+                          <CardFooter>
+                            <div className="flex items-center justify-between mt-auto">
+                              <div className="flex -space-x-3 overflow-hidden">
+                                {job.candidates.map((candidateImg, index) => (
+                                  <img
+                                    key={index}
+                                    className="inline-block h-7 w-7 rounded-full ring-1 ring-white" // Slightly smaller avatars
+                                    src={candidateImg}
+                                    alt={`Candidate ${index + 1}`}
+                                  />
+                                ))}
+                                {job.candidateCount &&
+                                  job.candidates.length === 3 && (
+                                    <div className="flex items-center justify-center h-7 w-7 rounded-full bg-gray-200 text-gray-600 text-xs font-semibold ring-1 ring-white">
+                                      +
+                                    </div>
+                                  )}
+                              </div>
+                              <span className="text-gray-500 text-xs">
+                                {job.candidateCount} Candidates
+                              </span>
+                            </div>
+                          </CardFooter>
+                        </Card>
+                        {/* <div className="flex items-center justify-between mb-3">
                           <div className="flex items-center">
                             <img
                               src={job.img}
@@ -415,7 +489,7 @@ const Jobs = () => {
                           <span className="text-gray-500 text-xs">
                             {job.candidateCount} Candidates
                           </span>
-                        </div>
+                        </div> */}
                       </div>
                     ))}
 
