@@ -319,7 +319,7 @@ const Jobs2 = () => {
                     className="bg-white  dark:bg-gradient-to-br dark:from-gray-800 dark:to-black shadow-md rounded-lg  cursor-grab  hover:scale-95"
                   >
                     <CardBody>
-                      {/* Card Header */}
+                    
                       <div
                         className={`flex justify-between items-center mb-3 mt-1  border-t-2 rounded-md p-1 ${borderColor}`}
                       >
@@ -333,7 +333,7 @@ const Jobs2 = () => {
                         </span>
                       </div>
 
-                      {/* Candidates List */}
+                  
                       <div className="space-y-3">
                         {candidates.map((candidate) => (
                           <Card
