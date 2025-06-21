@@ -6,7 +6,7 @@ const Structure = () => {
   const [searchQuery, setSearchQuery] = useState("");
   
   const [darkMode, setDarkMode] = useState(() => {
-    return localStorage.getItem("theme") === "light";
+    return localStorage.getItem("theme") === "dark";
   });
 
   useEffect(() => {
