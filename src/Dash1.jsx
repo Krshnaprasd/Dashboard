@@ -1,17 +1,12 @@
 import React from "react";
 
+import { Switch } from "@heroui/react";
+
 import { Outlet, useNavigate, useLocation } from "react-router-dom";
-import {
-  Drawer,
-  DrawerContent,
-  DrawerHeader,
-  DrawerBody,
-  DrawerFooter,
-  Button,
-} from "@heroui/react";
+import { Drawer, DrawerContent, DrawerHeader, DrawerBody } from "@heroui/react";
 import Log from "./assets/Group 4.png";
 import Logo from "./assets/share.png";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 // =========== Components
 
@@ -41,41 +36,69 @@ const Dash1 = () => {
     setIsLoading(true);
     setTimeout(() => {
       setActiveScreen(screen);
+      if (location.pathname !== "/") {
+        navigate("/"); // 👈 navigate to base route so Outlet is removed
+      }
       setIsLoading(false);
-    }, 300); // simulate a short delay (optional)
+    }, 300);
   };
+
+  useEffect(() => {
+    if (activeScreen === "Jobs" && location.pathname === "/") {
+      navigate("/jobs");
+    }
+  }, [activeScreen, location.pathname, navigate]);
+
+  // ============== toggle =========================================================
+
+  const [darkMode, setDarkMode] = useState(false);
+
+  useEffect(() => {
+    document.documentElement.classList.toggle("dark", darkMode);
+  }, [darkMode]);
 
   return (
     <>
       <div>
-        <div className=" grid grid-cols-1 md:grid-cols-12 ">
+        <div className="grid grid-cols-1 md:grid-cols-12 md:min-h-screen">
           {isLoading ? (
-            <div className="fixed inset-0 flex justify-center items-center bg-white z-50">
+            <div className="fixed inset-0 z-50 flex items-center justify-center bg-white/30 backdrop-blur-sm backdrop-saturate-150 z-50">
               <div className="w-6 h-6 border-4 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
             </div>
           ) : (
             <>
-              <div className=" md:col-span-3 lg:col-span-2 border-zinc-200 border">
-                <div className="md:hidden px-4 py-4 flex justify-between items-center align-center ">
-                  <div className=" ">
+              <div className=" md:col-span-3 lg:col-span-2 dark:border-zinc-800 border-zinc-200 border">
+                <div className="md:hidden px-4 py-3 flex justify-between ">
+                  <div className=" w-full flex items-center justify-between px-4 py-2">
+                   
                     <button onClick={() => setIsDrawerOpen(true)}>
-                      <i className="bi bi-list text-lg"></i>
+                      <i className="bi bi-list text-xl"></i>
                     </button>
-                  </div>
-                  <div className="flex align-center items-center">
-                    <div className="relative w-[28px] h-[28px] mr-2">
-                      <img
-                        className="absolute  z-0 "
-                        src={Log}
-                        alt="Background"
-                      />
-                      <img
-                        className="absolute  z-10 px-2 py-2"
-                        src={Logo}
-                        alt="Foreground"
-                      />
+
+            
+                    <div className="absolute left-1/2 transform -translate-x-1/2 flex items-center">
+                      <div className="relative w-[28px] h-[28px] mr-1">
+                        <img
+                          className="absolute z-0"
+                          src={Log}
+                          alt="Background"
+                        />
+                        <img
+                          className="absolute z-10 px-2 py-2"
+                          src={Logo}
+                          alt="Foreground"
+                        />
+                      </div>
+                      <span className="font-semibold">Human R.</span>
                     </div>
-                    <span className="font-semibold">Human R.</span>
+
+                  
+                    <button
+                      onClick={() => setDarkMode(!darkMode)}
+                      className="px-2 bg-gray-200 dark:bg-gray-500 rounded"
+                    >
+                      {darkMode ? "L" : "D"}
+                    </button>
                   </div>
                 </div>
                 <div className="md:hidden">
@@ -172,6 +195,11 @@ const Dash1 = () => {
                                       setIsLoading(false);
                                     }, 300);
                                   }}
+                                  className={`mt-1 rounded-md p-1 transition duration-300 ${
+                                    activeScreen === "Jobs"
+                                      ? "text-white bg-blue-600 cursor-default"
+                                      : "text-neutral-400 hover:text-white hover:bg-blue-600 cursor-pointer"
+                                  }`}
                                 >
                                   <i className="bi bi-briefcase-fill"></i>
                                   <span className="px-2 pointer-events-none select-none">
@@ -470,9 +498,9 @@ const Dash1 = () => {
                   </div>
                 </div>
               </div>
-              <div className=" md:col-span-9 lg:col-span-10">
-                <div className="min-h-screen w-full  bg-slate-100 pb-10">
-                  {activeScreen === "Jobs" ||
+              <div className="min-h-screen md:col-span-9 lg:col-span-10 flex flex-col">
+                <div className="flex-grow bg-slate-100 dark:bg-black pb-10">
+                  {location.pathname === "/jobs" ||
                   location.pathname.startsWith("/job/") ? (
                     <Outlet />
                   ) : activeScreen === "Dashboard" ? (

@@ -1,4 +1,5 @@
 import React from "react";
+
 import Slack from "../assets/slack.png";
 import Spot from "../assets/spotify.png";
 import Shaz from "../assets/shazam.png";
@@ -15,13 +16,12 @@ import {
   CardBody,
   CardFooter,
   Divider,
-  Link,
   Image,
 } from "@heroui/react";
 
 const Jobs = () => {
   const [searchQuery, setSearchQuery] = useState("");
-
+  const [isLoading, setIsLoading] = useState(false);
   const [jobCardsData, setJobCardsData] = useState([
     {
       id: 1,
@@ -209,15 +209,24 @@ const Jobs = () => {
   const handleTabClick = (tabName) => {
     setActiveTab(tabName);
   };
+
+  // =============================================================
+
+  const [darkMode, setDarkMode] = useState(false);
+
+  useEffect(() => {
+    document.documentElement.classList.toggle("dark");
+  }, [darkMode]);
+
   return (
     <div>
-      <div className="bg-white">
+      <div className="bg-white  dark:bg-black  dark:border-b dark:border-zinc-800">
         <small className=" md:p-1 py-2 flex md:justify-end justify-center">
           <div>
             <input
               type="text"
               placeholder="Search for anything"
-              className=" my-2 md:h-7 h-5 rounded-l-lg placeholder:text-xs placeholder:px-4 focus:outline-none focus:ring-1 focus:ring-slate-200"
+              className=" my-2 md:h-7  dark:bg-gray-700 dark:placeholder:text-gray-200 h-5 rounded-l-lg placeholder:text-xs placeholder:px-4 focus:outline-none focus:ring-1 focus:ring-slate-200"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
             />
@@ -234,7 +243,17 @@ const Jobs = () => {
               </span>
             </div>
 
-            <img className="md:w-7 md:h-7 w-5 h-5 me-5" src={Icon}></img>
+            <img className="md:w-7 md:h-7 w-5 h-5 me-2" src={Icon}></img>
+            <button
+              onClick={() => setDarkMode(!darkMode)}
+              className="px-1 py-1  rounded md:me-3 hidden md:block"
+            >
+              <i
+                className={`bi ${
+                  darkMode ? "bi-brightness-low-fill" : "bi-moon-fill"
+                } text-lg`}
+              ></i>
+            </button>
           </div>
         </small>
       </div>
@@ -251,7 +270,7 @@ const Jobs = () => {
             <div>
               <small>
                 Sort by :{" "}
-                <span className="font-semibold ">
+                <span className="font-semibold  dark:text-gray-400">
                   {" "}
                   Creation date
                   <input
@@ -267,12 +286,12 @@ const Jobs = () => {
                 <select
                   value={activeTab}
                   onChange={(e) => handleTabClick(e.target.value.toLowerCase())}
-                  className="bg-transparent text-gray-700 p-1 font-semibold focus:outline-none"
+                  className="bg-transparent  dark:text-gray-400 text-gray-700 p-1 font-semibold focus:outline-none"
                 >
                   <option value=" ">All Status</option>
                   <option value="Active">Active</option>
-                  <option value="Completed">Completed </option>
                   <option value="Unfinished">Unfinished</option>
+                  <option value="Completed">Completed </option>
                 </select>
               </small>
             </div>
@@ -296,7 +315,7 @@ const Jobs = () => {
       ${
         activeTab === "active"
           ? "text-green-600 font-semibold"
-          : "text-gray-500 hover:text-green-600"
+          : "text-gray-500 hover:text-green-600  dark:text-gray-400"
       }
     `}
                       id="active"
@@ -320,7 +339,7 @@ const Jobs = () => {
                 ${
                   activeTab === "unfinished"
                     ? "text-green-600 font-semibold"
-                    : "text-gray-700 hover:text-green-600"
+                    : "text-gray-700 hover:text-green-600 dark:text-gray-400"
                 }
               `}
                       id="unfinish"
@@ -344,7 +363,7 @@ const Jobs = () => {
                 ${
                   activeTab === "completed"
                     ? "text-green-600 font-semibold"
-                    : "text-gray-700 hover:text-green-600"
+                    : "text-gray-700 hover:text-green-600  dark:text-gray-400"
                 }
               `}
                       id="complete"
@@ -370,7 +389,7 @@ const Jobs = () => {
             </div>
             <div className="tab-content" id="myTabContent">
               <div
-                className={` bg-gray-100 rounded-md ${
+                className={`  rounded-md ${
                   activeTab === "active" ? "block" : "hidden"
                 }`}
                 id="active"
@@ -378,124 +397,94 @@ const Jobs = () => {
                 aria-labelledby="home-tab"
                 tabIndex="0"
               >
-                <div className="font-sans bg-gray-100">
+                <div className="font-sans ">
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4   gap-5">
-                    {filteredJobs.map((job) => (
-                      <div
-                        key={job.id}
-                        className=" rounded-lg   cursor-grab "
-                        onClick={() =>
-                          navigate(`/job/${job.id}`, { state: job })
-                        }
-                      >
-                        <Card className="bg-slate-10 hover:bg-white-500 hover:scale-95 border-transparent ">
-                          <CardHeader className="flex items-center  justify-between">
-                            <Image
-                              alt="heroui logo"
-                              height={30}
-                              radius="sm"
-                              src={job.img}
-                              width={30}
-                              className="border-slate-800 p-1"
-                            />
-                            <div className="flex ">
-                              <p className="text-small text-gray-500">
-                                {" "}
-                                {job.date}
-                              </p>
-                            </div>
-                          </CardHeader>
-                          <Divider className="bg-gray-100" />
-                          <CardBody>
-                            <span className="text-gray-500 text-xs">
-                              {job.category}
-                            </span>
-                            <h2 className="text-md font-bold ">
-                              {job.designation}
-                            </h2>
-                            <p className="text-gray-600 text-sm mb-3">
-                              {job.location}
-                            </p>
-                            <p className="text-gray-700 text-xs mb-4 line-clamp-3">
-                              {job.description}
-                            </p>
-                          </CardBody>
-                          <Divider className="bg-gray-100" />
-                          <CardFooter>
-                            <div className="flex items-center justify-between mt-auto">
-                              <div className="flex -space-x-3 overflow-hidden">
-                                {job.candidates.map((candidateImg, index) => (
-                                  <img
-                                    key={index}
-                                    className="inline-block h-7 w-7 rounded-full ring-1 ring-white" // Slightly smaller avatars
-                                    src={candidateImg}
-                                    alt={`Candidate ${index + 1}`}
-                                  />
-                                ))}
-                                {job.candidateCount &&
-                                  job.candidates.length === 3 && (
-                                    <div className="flex items-center justify-center h-7 w-7 rounded-full bg-gray-200 text-gray-600 text-xs font-semibold ring-1 ring-white">
-                                      +
-                                    </div>
-                                  )}
-                              </div>
-                              <span className="text-gray-500 text-xs">
-                                {job.candidateCount} Candidates
-                              </span>
-                            </div>
-                          </CardFooter>
-                        </Card>
-                        {/* <div className="flex items-center justify-between mb-3">
-                          <div className="flex items-center">
-                            <img
-                              src={job.img}
-                              alt="Company logo"
-                              className="w-8 h-8 mr-2"
-                            />
-                          </div>
-                          <div className="text-gray-500 text-xs">
-                            {job.date}
-                          </div>
-                        </div>
-                        <span className="text-gray-500 text-xs">
-                          {job.category}
-                        </span>
-                        <h2 className="text-md font-bold ">
-                          {job.designation}
-                        </h2>
-                        <p className="text-gray-600 text-sm mb-3">
-                          {job.location}
-                        </p>
-                        <p className="text-gray-700 text-xs mb-4 line-clamp-3">
-                          {job.description}
-                        </p>
-                        <div className="flex items-center justify-between mt-auto">
-                          <div className="flex -space-x-3 overflow-hidden">
-                            {job.candidates.map((candidateImg, index) => (
-                              <img
-                                key={index}
-                                className="inline-block h-7 w-7 rounded-full ring-1 ring-white" // Slightly smaller avatars
-                                src={candidateImg}
-                                alt={`Candidate ${index + 1}`}
-                              />
-                            ))}
-                            {job.candidateCount &&
-                              job.candidates.length === 3 && (
-                                <div className="flex items-center justify-center h-7 w-7 rounded-full bg-gray-200 text-gray-600 text-xs font-semibold ring-1 ring-white">
-                                  +
-                                </div>
-                              )}
-                          </div>
-                          <span className="text-gray-500 text-xs">
-                            {job.candidateCount} Candidates
-                          </span>
-                        </div> */}
+                    {isLoading ? (
+                      <div className="fixed inset-0 flex justify-center items-center bg-white/30 backdrop-blur-sm  z-50">
+                        <div className="w-6 h-6 border-4 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
                       </div>
-                    ))}
-
+                    ) : (
+                      <>
+                        {filteredJobs.map((job) => (
+                          <div
+                            key={job.id}
+                            className=" rounded-lg   cursor-grab "
+                            onClick={() => {
+                              setIsLoading(true);
+                              setTimeout(() => {
+                                navigate(`/job/${job.id}`, { state: job });
+                              }, 300); // Optional delay to show spinner briefly
+                            }}
+                          >
+                            <Card
+                              className="bg-white  dark:bg-gradient-to-br  dark:from-gray-900 dark:to-black  dark:border dark:border-white/10 
+                    dark:shadow-inner dark:shadow-white/5   hover:scale-95 border-transparent "
+                            >
+                              <CardHeader className="flex items-center  justify-between">
+                                <Image
+                                  alt="heroui logo"
+                                  height={30}
+                                  radius="sm"
+                                  src={job.img}
+                                  width={30}
+                                  className="border-slate-800 p-1"
+                                />
+                                <div className="flex ">
+                                  <p className="text-small text-gray-500 dark:text-gray-400">
+                                    {" "}
+                                    {job.date}
+                                  </p>
+                                </div>
+                              </CardHeader>
+                              <Divider className="bg-gray-100 dark:bg-gray-700" />
+                              <CardBody>
+                                <span className="text-gray-500 dark:text-gray-400 text-xs">
+                                  {job.category}
+                                </span>
+                                <h2 className="text-md font-bold ">
+                                  {job.designation}
+                                </h2>
+                                <p className="text-gray-600 text-sm mb-3 dark:text-gray-400">
+                                  {job.location}
+                                </p>
+                                <p className="text-gray-700 text-xs mb-4 line-clamp-3 dark:text-gray-400">
+                                  {job.description}
+                                </p>
+                              </CardBody>
+                              <Divider className="bg-gray-100 dark:bg-gray-700" />
+                              <CardFooter>
+                                <div className="flex items-center justify-between mt-auto ">
+                                  <div className="flex -space-x-3 overflow-hidden ">
+                                    {job.candidates.map(
+                                      (candidateImg, index) => (
+                                        <img
+                                          key={index}
+                                          className="inline-block h-7 w-7 rounded-full ring-1 ring-white dark:ring-black" // Slightly smaller avatars
+                                          src={candidateImg}
+                                          alt={`Candidate ${index + 1}`}
+                                        />
+                                      )
+                                    )}
+                                    {job.candidateCount &&
+                                      job.candidates.length === 3 && (
+                                        <div className="flex items-center dark:text-gray-400 justify-center h-7 w-7 rounded-full bg-gray-200 text-gray-600 text-xs font-semibold ring-1 ring-white">
+                                          +
+                                        </div>
+                                      )}
+                                  </div>
+                                  <span className="text-gray-500 text-xs dark:text-gray-400 ms-10">
+                                    {job.candidateCount} Candidates
+                                  </span>
+                                </div>
+                              </CardFooter>
+                            </Card>
+                          </div>
+                        ))}
+                      </>
+                    )}
                     <div
                       onClick={() => setShowForm(true)}
-                      className=" bg-white rounded-lg shadow-md p-4 flex items-center justify-center flex-col text-center border-2 border-dashed border-gray-300 text-gray-500"
+                      className=" bg-white dark:bg-black rounded-lg shadow-md p-4 flex items-center justify-center flex-col text-center border-2 border-dashed dark:border-gray-600 border-gray-300 text-gray-500"
                     >
                       <svg
                         className="w-10 h-10 mb-3 text-green-500"
@@ -517,7 +506,7 @@ const Jobs = () => {
 
                     {showForm && (
                       <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-                        <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md relative">
+                        <div className="bg-white  dark:bg-black p-6 rounded-lg shadow-lg w-full max-w-md relative">
                           <button
                             className="absolute top-2 right-2 text-gray-500 hover:text-gray-700 text-xl font-bold"
                             onClick={() => setShowForm(false)}
@@ -636,7 +625,7 @@ const Jobs = () => {
               </div>
 
               <div
-                className={`bg-gray-100 rounded-md ${
+                className={` rounded-md ${
                   activeTab === "unfinished" ? "block" : "hidden"
                 }`}
                 id="unfinish"
@@ -647,13 +636,13 @@ const Jobs = () => {
                 <h2 className="text-xl font-semibold mb-2">
                   Unfinished Jobs Content
                 </h2>
-                <p className="text-gray-700">
+                <p className="text-gray-700 dark:text-gray-500">
                   Here are the details for your 50 unfinished jobs.
                 </p>
               </div>
 
               <div
-                className={`bg-gray-100 rounded-md ${
+                className={` rounded-md ${
                   activeTab === "completed" ? "block" : "hidden"
                 }`}
                 id="complete"
@@ -664,7 +653,7 @@ const Jobs = () => {
                 <h2 className="text-xl font-semibold mb-2">
                   Completed Jobs Content
                 </h2>
-                <p className="text-gray-700">
+                <p className="text-gray-700 dark:text-gray-500">
                   Congratulations! You have completed 48 jobs.
                 </p>
               </div>
