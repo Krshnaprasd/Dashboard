@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { HashRouter, Routes, Route } from "react-router-dom";
 import Dash from "./Dash1";
 import Jobs from "./Components/Jobs";
 import Jobs2 from "./Components/Jobs2";
@@ -6,7 +6,7 @@ import './App.css'
 
 function App() {
   return (
-    <BrowserRouter>
+    <HashRouter>
       <Routes>
         <Route path="/" element={<Dash />}>
           <Route path="jobs" element={<Jobs />} />
@@ -14,7 +14,7 @@ function App() {
         </Route>
         <Route path="*" element={<div>404 Not Found</div>} />
       </Routes>
-    </BrowserRouter>
+    </HashRouter>
   );
 }
 
