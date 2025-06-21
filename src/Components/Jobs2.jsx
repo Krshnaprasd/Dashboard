@@ -10,18 +10,11 @@ const Jobs2 = () => {
 
   // ================================================================
 
-  const [darkMode, setDarkMode] = useState(() => {
-    return localStorage.getItem("theme") === "dark";
-  });
+  const [darkMode, setDarkMode] = useState(false);
 
+  
   useEffect(() => {
-    if (darkMode) {
-      document.documentElement.classList.add("dark");
-      localStorage.setItem("theme", "dark");
-    } else {
-      document.documentElement.classList.remove("dark");
-      localStorage.setItem("theme", "light");
-    }
+    document.documentElement.classList.toggle("dark");
   }, [darkMode]);
 
 
@@ -345,7 +338,7 @@ const Jobs2 = () => {
                         {candidates.map((candidate) => (
                           <Card
                             key={candidate.id}
-                            className="border border-gray-100 dark:border-gray-700  dark:bg-gradient-to-br  dark:from-gray-900 dark:to-black  dark:border dark:border-white/10 
+                            className="bg-white border border-gray-100 dark:border-gray-700  dark:bg-gradient-to-br  dark:from-gray-900 dark:to-black  dark:border dark:border-white/10 
                     dark:shadow-inner dark:shadow-white/10 rounded-lg shadow-sm "
                           >
                             <CardBody className="space-y-1">

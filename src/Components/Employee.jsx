@@ -5,18 +5,11 @@ import { useState, useEffect } from "react";
 const Employee = () => {
   const [searchQuery, setSearchQuery] = useState("");
   
-  const [darkMode, setDarkMode] = useState(() => {
-    return localStorage.getItem("theme") === "dark";
-  });
+    const [darkMode, setDarkMode] = useState(false);
 
+  
   useEffect(() => {
-    if (darkMode) {
-      document.documentElement.classList.add("dark");
-      localStorage.setItem("theme", "dark");
-    } else {
-      document.documentElement.classList.remove("dark");
-      localStorage.setItem("theme", "light");
-    }
+    document.documentElement.classList.toggle("dark");
   }, [darkMode]);
   
   return (
