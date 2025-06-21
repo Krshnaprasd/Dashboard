@@ -31,7 +31,7 @@ const Dash1 = () => {
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
-  const [darkMode, setDarkMode] = useState(false);
+ 
   const handleSetActiveScreen = (screen) => {
     setIsLoading(true);
     setTimeout(() => {
@@ -53,8 +53,18 @@ const Dash1 = () => {
 
 
 
+   const [darkMode, setDarkMode] = useState(() => {
+    return localStorage.getItem("theme") === "dark";
+  });
+
   useEffect(() => {
-    document.documentElement.classList.toggle("dark");
+    if (darkMode) {
+      document.documentElement.classList.add("dark");
+      localStorage.setItem("theme", "dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+      localStorage.setItem("theme", "light");
+    }
   }, [darkMode]);
 
   return (
