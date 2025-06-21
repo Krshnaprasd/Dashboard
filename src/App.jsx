@@ -12,6 +12,7 @@ function App() {
           <Route path="jobs" element={<Jobs />} />
           <Route path="job/:id" element={<Jobs2 />} />
         </Route>
+        <Route path="*" element={<div>404 Not Found</div>} />
       </Routes>
     </BrowserRouter>
   );
