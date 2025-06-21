@@ -8,6 +8,15 @@ import { useLocation, useNavigate } from "react-router-dom";
 const Jobs2 = () => {
   const [activeTab, setActiveTab] = useState("candidate");
 
+  // ================================================================
+
+  const [darkMode, setDarkMode] = useState(false);
+
+  useEffect(() => {
+    document.documentElement.classList.toggle("dark");
+  }, [darkMode]);
+  
+
   const underlineRef = useRef(null);
   const candidateTabRef = useRef(null);
   const jobDetailTabRef = useRef(null);
@@ -46,13 +55,7 @@ const Jobs2 = () => {
     return <p className="text-center mt-10">No job data found.</p>;
   }
 
-  // ================================================================
-
-  const [darkMode, setDarkMode] = useState(false);
-
-  useEffect(() => {
-    document.documentElement.classList.toggle("dark");
-  }, [darkMode]);
+  
 
   // ================================================================
   const candidatesData = {
