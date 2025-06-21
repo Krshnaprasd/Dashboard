@@ -10,16 +10,20 @@ const Jobs2 = () => {
 
   // ================================================================
 
-  const [darkMode, setDarkMode] = useState(false);
+  const [darkMode, setDarkMode] = useState(() => {
+   
+    return sessionStorage.getItem("darkMode") === "true";
+  });
 
-  
-useEffect(() => {
-  if (darkMode) {
-    document.documentElement.classList.add("dark");
-  } else {
-    document.documentElement.classList.remove("dark");
-  }
-}, [darkMode]);
+  useEffect(() => {
+    if (darkMode) {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+    
+    sessionStorage.setItem("darkMode", darkMode);
+  }, [darkMode]);
 
 
   const underlineRef = useRef(null);
