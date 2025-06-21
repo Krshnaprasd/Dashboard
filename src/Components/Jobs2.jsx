@@ -13,9 +13,13 @@ const Jobs2 = () => {
   const [darkMode, setDarkMode] = useState(false);
 
   
-  useEffect(() => {
-    document.documentElement.classList.toggle("dark");
-  }, [darkMode]);
+useEffect(() => {
+  if (darkMode) {
+    document.documentElement.classList.add("dark");
+  } else {
+    document.documentElement.classList.remove("dark");
+  }
+}, [darkMode]);
 
 
   const underlineRef = useRef(null);

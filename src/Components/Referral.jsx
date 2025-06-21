@@ -6,10 +6,13 @@ const Referral = () => {
   
   const [darkMode, setDarkMode] = useState(false);
 
-  
-  useEffect(() => {
-    document.documentElement.classList.toggle("dark");
-  }, [darkMode]);
+useEffect(() => {
+  if (darkMode) {
+    document.documentElement.classList.add("dark");
+  } else {
+    document.documentElement.classList.remove("dark");
+  }
+}, [darkMode]);
   
   return (
     <div>
