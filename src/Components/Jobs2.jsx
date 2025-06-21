@@ -15,7 +15,7 @@ const Jobs2 = () => {
   useEffect(() => {
     document.documentElement.classList.toggle("dark");
   }, [darkMode]);
-  
+
 
   const underlineRef = useRef(null);
   const candidateTabRef = useRef(null);
@@ -327,7 +327,7 @@ const Jobs2 = () => {
                         >
                           {title}
                         </h2>
-                        <span className="bg-gray-200 text-gray-700 text-xs font-medium px-2 py-1 rounded-full">
+                        <span className="bg-gray-200 dark:bg-gray-700 dark:text-gray-300 text-gray-700 text-xs font-medium px-2 py-1 rounded-full">
                           {candidates.length}
                         </span>
                       </div>
