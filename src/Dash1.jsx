@@ -31,7 +31,7 @@ const Dash1 = () => {
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
-
+  const [darkMode, setDarkMode] = useState(false);
   const handleSetActiveScreen = (screen) => {
     setIsLoading(true);
     setTimeout(() => {
@@ -51,7 +51,7 @@ const Dash1 = () => {
 
   // ============== toggle =========================================================
 
-  const [darkMode, setDarkMode] = useState(false);
+
 
   useEffect(() => {
     document.documentElement.classList.toggle("dark");
