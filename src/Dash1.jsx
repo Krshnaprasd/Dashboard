@@ -54,7 +54,7 @@ const Dash1 = () => {
   const [darkMode, setDarkMode] = useState(false);
 
   useEffect(() => {
-    document.documentElement.classList.toggle("dark", darkMode);
+    document.documentElement.classList.toggle("dark");
   }, [darkMode]);
 
   return (
@@ -69,7 +69,7 @@ const Dash1 = () => {
             <>
               <div className=" md:col-span-3 lg:col-span-2 dark:border-zinc-800 border-zinc-200 border">
                 <div className="md:hidden px-4 py-3 flex justify-between ">
-                  <div className=" w-full flex items-center justify-between px-4 py-2">
+                  <div className=" w-full flex items-center justify-between py-2">
                    
                     <button onClick={() => setIsDrawerOpen(true)}>
                       <i className="bi bi-list text-xl"></i>
@@ -93,12 +93,16 @@ const Dash1 = () => {
                     </div>
 
                   
-                    <button
-                      onClick={() => setDarkMode(!darkMode)}
-                      className="px-2 bg-gray-200 dark:bg-gray-500 rounded"
-                    >
-                      {darkMode ? "L" : "D"}
-                    </button>
+                   <button
+                onClick={() => setDarkMode(!darkMode)}
+                className="px-1 py-1  rounded "
+              >
+                <i
+                  className={`bi ${
+                    darkMode ? "bi-brightness-low-fill" : "bi-moon-fill"
+                  } text-lg`}
+                ></i>
+              </button>{" "}
                   </div>
                 </div>
                 <div className="md:hidden">
